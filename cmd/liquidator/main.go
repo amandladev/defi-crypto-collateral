@@ -1,0 +1,43 @@
+package liquidator
+package main
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}	cancel()	log.Println("[Liquidator] Shutting down...")	<-sigCh	signal.Notify(sigCh, syscall.SIGINT, syscall.SIGTERM)	sigCh := make(chan os.Signal, 1)	log.Println("[Liquidator] Worker started")	go engine.Start(ctx)	go priceOracle.StartSimulation(ctx)	ctx, cancel := context.WithCancel(context.Background())	engine := service.NewLiquidationEngine(cfg, store, priceOracle, riskEngine)	riskEngine := risk.NewEngine(cfg, store, priceOracle)	priceOracle := oracle.NewPriceOracle(cfg)	store := repository.NewInMemoryStore()	cfg := config.Load()func main() {// In production, this runs as a separate ECS task or Lambda triggered by SQS.// Standalone liquidator worker.)	"github.com/cryptolend/protocol-defi/internal/service"	"github.com/cryptolend/protocol-defi/internal/risk"	"github.com/cryptolend/protocol-defi/internal/repository"	"github.com/cryptolend/protocol-defi/internal/oracle"	"github.com/cryptolend/protocol-defi/internal/config"	"syscall"	"os/signal"	"os"	"log"	"context"import (
